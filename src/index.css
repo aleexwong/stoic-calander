@@ -2,95 +2,109 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Stone/parchment background */
+    --background: 40 25% 95%;
+    --foreground: 150 12% 12%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Card surfaces - slightly warmer */
+    --card: 40 20% 97%;
+    --card-foreground: 150 12% 12%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 40 20% 97%;
+    --popover-foreground: 150 12% 12%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - desaturated olive/evergreen */
+    --primary: 95 28% 32%;
+    --primary-foreground: 40 25% 95%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - muted stone */
+    --secondary: 40 15% 90%;
+    --secondary-foreground: 150 12% 20%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted surfaces */
+    --muted: 40 12% 88%;
+    --muted-foreground: 150 8% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent - lighter olive */
+    --accent: 95 20% 42%;
+    --accent-foreground: 40 25% 95%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 60% 50%;
+    --destructive-foreground: 40 25% 95%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 40 15% 82%;
+    --input: 40 15% 85%;
+    --ring: 95 28% 32%;
 
-    --radius: 0.5rem;
+    --radius: 0.25rem;
 
-    --sidebar-background: 0 0% 98%;
+    /* Custom tokens for memento mori */
+    --dot-passed: 95 22% 45%;
+    --dot-remaining: 40 12% 85%;
+    --progress-track: 40 15% 88%;
+    --progress-fill: 95 25% 38%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    /* Typography */
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Inter', system-ui, sans-serif;
 
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sidebar (keeping defaults) */
+    --sidebar-background: 40 20% 96%;
+    --sidebar-foreground: 150 10% 25%;
+    --sidebar-primary: 95 28% 32%;
+    --sidebar-primary-foreground: 40 25% 95%;
+    --sidebar-accent: 40 15% 92%;
+    --sidebar-accent-foreground: 150 10% 20%;
+    --sidebar-border: 40 15% 85%;
+    --sidebar-ring: 95 28% 32%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 150 15% 8%;
+    --foreground: 40 20% 92%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 150 12% 10%;
+    --card-foreground: 40 20% 92%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 150 12% 10%;
+    --popover-foreground: 40 20% 92%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 95 25% 55%;
+    --primary-foreground: 150 15% 8%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 150 10% 15%;
+    --secondary-foreground: 40 20% 88%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 150 10% 18%;
+    --muted-foreground: 40 15% 55%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 95 20% 50%;
+    --accent-foreground: 150 15% 8%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 55% 45%;
+    --destructive-foreground: 40 20% 92%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 150 10% 20%;
+    --input: 150 10% 20%;
+    --ring: 95 25% 55%;
+
+    --dot-passed: 95 25% 50%;
+    --dot-remaining: 150 8% 25%;
+    --progress-track: 150 10% 18%;
+    --progress-fill: 95 22% 45%;
+
+    --sidebar-background: 150 12% 10%;
+    --sidebar-foreground: 40 18% 88%;
+    --sidebar-primary: 95 25% 55%;
+    --sidebar-primary-foreground: 150 15% 8%;
+    --sidebar-accent: 150 10% 15%;
+    --sidebar-accent-foreground: 40 18% 88%;
+    --sidebar-border: 150 10% 18%;
+    --sidebar-ring: 95 25% 55%;
   }
 }
 
@@ -99,7 +113,52 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
-  body {
-    @apply bg-background text-foreground;
+  html {
+    scroll-behavior: smooth;
   }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans);
+  }
+
+  /* Quiet, elegant selection */
+  ::selection {
+    @apply bg-primary/20 text-foreground;
+  }
+}
+
+@layer components {
+  .font-serif {
+    font-family: var(--font-serif);
+  }
+
+  .font-sans {
+    font-family: var(--font-sans);
+  }
+}
+
+@layer utilities {
+  /* Subtle fade-in animation */
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Staggered animation delays */
+  .animation-delay-100 { animation-delay: 100ms; }
+  .animation-delay-200 { animation-delay: 200ms; }
+  .animation-delay-300 { animation-delay: 300ms; }
+  .animation-delay-400 { animation-delay: 400ms; }
+  .animation-delay-500 { animation-delay: 500ms; }
 }
