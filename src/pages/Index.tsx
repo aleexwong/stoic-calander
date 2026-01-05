@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { DateStrip } from "@/components/DateStrip";
 import { QuoteSection } from "@/components/QuoteSection";
 import { QuoteToggle } from "@/components/QuoteToggle";
@@ -6,8 +6,15 @@ import { MonthsRow } from "@/components/MonthsRow";
 import { DotGrid } from "@/components/DotGrid";
 import { ProgressStats } from "@/components/ProgressStats";
 import { Footer } from "@/components/Footer";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { ViewToggle, ViewMode } from "@/components/ViewToggle";
 import { stoicQuotes, StoicQuote } from "@/data/stoicQuotes";
 import { getDayOfYear } from "@/lib/dateUtils";
+
+const STORAGE_KEYS = {
+  QUOTE_MODE: 'stoic-calendar-quote-mode',
+  VIEW_MODE: 'stoic-calendar-view-mode',
+} as const;
 
 const Index = () => {
   const today = useMemo(() => new Date(), []);
@@ -19,8 +26,35 @@ const Index = () => {
     return stoicQuotes[index];
   }, [dayOfYear]);
 
-  const [mode, setMode] = useState<'daily' | 'random'>('daily');
+  // Initialize state from localStorage
+  const [mode, setMode] = useState<'daily' | 'random'>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(STORAGE_KEYS.QUOTE_MODE);
+      return saved === 'random' ? 'random' : 'daily';
+    }
+    return 'daily';
+  });
+
+  const [viewMode, setViewMode] = useState<ViewMode>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(STORAGE_KEYS.VIEW_MODE);
+      if (saved === 'week' || saved === 'month' || saved === 'year') {
+        return saved;
+      }
+    }
+    return 'year';
+  });
+
   const [randomQuote, setRandomQuote] = useState<StoicQuote | null>(null);
+
+  // Persist mode to localStorage
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.QUOTE_MODE, mode);
+  }, [mode]);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.VIEW_MODE, viewMode);
+  }, [viewMode]);
 
   const handleToggle = useCallback(() => {
     if (mode === 'daily') {
@@ -34,6 +68,10 @@ const Index = () => {
     }
   }, [mode]);
 
+  const handleViewChange = useCallback((newView: ViewMode) => {
+    setViewMode(newView);
+  }, []);
+
   const currentQuote = mode === 'daily' ? dailyQuote : (randomQuote || dailyQuote);
 
   return (
@@ -41,6 +79,11 @@ const Index = () => {
       {/* SEO */}
       <title>Memento Mori — A Stoic Reflection</title>
       <meta name="description" content="A modern memento mori. Reflect on time passing with daily Stoic wisdom from Marcus Aurelius, Seneca, and Epictetus." />
+
+      {/* Theme toggle - fixed position */}
+      <div className="fixed top-4 right-4 z-50">
+        <ThemeToggle />
+      </div>
 
       {/* Main content */}
       <main className="flex-1 flex flex-col justify-center px-4 py-12 sm:py-16 md:py-20">
@@ -59,14 +102,17 @@ const Index = () => {
           {/* Months row */}
           <MonthsRow />
 
+          {/* View toggle */}
+          <ViewToggle currentView={viewMode} onViewChange={handleViewChange} />
+
           {/* Dot grid visualization */}
           <section aria-labelledby="calendar-heading">
             <h2 id="calendar-heading" className="sr-only">Year Progress Visualization</h2>
-            <DotGrid date={today} />
+            <DotGrid date={today} viewMode={viewMode} />
           </section>
 
           {/* Progress stats */}
-          <ProgressStats date={today} />
+          <ProgressStats date={today} viewMode={viewMode} />
 
         </div>
       </main>

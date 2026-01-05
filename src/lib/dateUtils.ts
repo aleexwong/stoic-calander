@@ -13,6 +13,28 @@ export function getDayOfYear(date: Date): number {
   return Math.floor(diff / oneDay);
 }
 
+export function getDaysInMonth(year: number, month: number): number {
+  return new Date(year, month + 1, 0).getDate();
+}
+
+export function getDayOfWeek(date: Date): number {
+  return date.getDay(); // 0 = Sunday, 6 = Saturday
+}
+
+export function getWeekOfYear(date: Date): number {
+  const start = new Date(date.getFullYear(), 0, 1);
+  const diff = date.getTime() - start.getTime();
+  const oneWeek = 1000 * 60 * 60 * 24 * 7;
+  return Math.ceil(diff / oneWeek);
+}
+
+export function getStartOfWeek(date: Date): Date {
+  const d = new Date(date);
+  const day = d.getDay();
+  const diff = d.getDate() - day;
+  return new Date(d.setDate(diff));
+}
+
 export function formatDate(date: Date): {
   weekday: string;
   day: string;

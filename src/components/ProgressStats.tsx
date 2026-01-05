@@ -1,15 +1,34 @@
-import { getDaysInYear, getDayOfYear } from "@/lib/dateUtils";
+import { getDaysInYear, getDayOfYear, getDaysInMonth, getDayOfWeek } from "@/lib/dateUtils";
+import { ViewMode } from "./ViewToggle";
 
 interface ProgressStatsProps {
   date: Date;
+  viewMode: ViewMode;
 }
 
-export function ProgressStats({ date }: ProgressStatsProps) {
+export function ProgressStats({ date, viewMode }: ProgressStatsProps) {
   const year = date.getFullYear();
-  const totalDays = getDaysInYear(year);
-  const dayOfYear = getDayOfYear(date);
+  const month = date.getMonth();
   
-  const percentPassed = ((dayOfYear / totalDays) * 100).toFixed(1);
+  let total: number;
+  let passed: number;
+  let label: string;
+
+  if (viewMode === 'week') {
+    total = 7;
+    passed = getDayOfWeek(date) + 1; // +1 because getDayOfWeek is 0-indexed
+    label = "of week";
+  } else if (viewMode === 'month') {
+    total = getDaysInMonth(year, month);
+    passed = date.getDate();
+    label = "of month";
+  } else {
+    total = getDaysInYear(year);
+    passed = getDayOfYear(date);
+    label = "of year";
+  }
+
+  const percentPassed = ((passed / total) * 100).toFixed(1);
   const percentRemaining = (100 - parseFloat(percentPassed)).toFixed(1);
 
   return (
@@ -20,6 +39,8 @@ export function ProgressStats({ date }: ProgressStatsProps) {
         <span className="mx-3 opacity-30" aria-hidden="true">·</span>
         <span className="text-foreground/80">{percentRemaining}%</span>
         <span className="opacity-50"> remaining</span>
+        <span className="mx-3 opacity-30" aria-hidden="true">·</span>
+        <span className="opacity-50">{label}</span>
       </p>
       
       {/* Progress bar */}
@@ -29,13 +50,18 @@ export function ProgressStats({ date }: ProgressStatsProps) {
         aria-valuenow={parseFloat(percentPassed)}
         aria-valuemin={0}
         aria-valuemax={100}
-        aria-label={`Year progress: ${percentPassed}% complete`}
+        aria-label={`Progress: ${percentPassed}% complete ${label}`}
       >
         <div 
           className="h-full bg-progress-fill rounded-full transition-all duration-1000 ease-out"
           style={{ width: `${percentPassed}%` }}
         />
       </div>
+
+      {/* Day counter */}
+      <p className="text-xs tracking-wide text-muted-foreground/60 font-sans">
+        Day {passed} of {total}
+      </p>
     </div>
   );
 }
