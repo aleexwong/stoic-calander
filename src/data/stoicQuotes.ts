@@ -333,3 +333,11 @@ export const stoicQuotes: StoicQuote[] = [
     source: "Fragments",
   },
 ];
+
+export const footerMessages = [
+  "Memento vivere.",
+  "Endure. Act.",
+  "The time is now.",
+  "Amor fati.",
+  "This too shall pass.",
+];
