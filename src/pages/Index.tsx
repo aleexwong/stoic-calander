@@ -7,6 +7,7 @@ import { DotGrid } from "@/components/DotGrid";
 import { ProgressStats } from "@/components/ProgressStats";
 import { Footer } from "@/components/Footer";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { AuthorCredit } from "@/components/AuthorCredit";
 import { ViewToggle, ViewMode } from "@/components/ViewToggle";
 import { stoicQuotes, StoicQuote } from "@/data/stoicQuotes";
 import { getDayOfYear } from "@/lib/dateUtils";
@@ -80,7 +81,10 @@ const Index = () => {
       <title>Memento Mori — A Stoic Reflection</title>
       <meta name="description" content="A modern memento mori. Reflect on time passing with daily Stoic wisdom from Marcus Aurelius, Seneca, and Epictetus." />
 
-      {/* Theme toggle - fixed position */}
+      {/* Author credit - top left */}
+      <AuthorCredit />
+
+      {/* Theme toggle - top right */}
       <div className="fixed top-4 right-4 z-50">
         <ThemeToggle />
       </div>
