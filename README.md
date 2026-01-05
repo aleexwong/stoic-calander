@@ -10,7 +10,7 @@ A minimalist web app that visualizes the passing of time through the lens of Sto
 ## Features
 
 - **Multiple Time Views** — Toggle between week, month, and year visualizations
-- **100 Stoic Quotes** — Curated wisdom from Marcus Aurelius, Seneca, and Epictetus
+- **50+ Stoic Quotes** — Curated wisdom from Marcus Aurelius, Seneca, and Epictetus
 - **Daily & Random Modes** — Deterministic daily quote or shuffle for variety
 - **Copy to Clipboard** — One-click quote sharing
 - **Dark/Light Theme** — Toggle with system preference detection
