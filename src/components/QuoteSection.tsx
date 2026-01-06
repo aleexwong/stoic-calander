@@ -51,6 +51,7 @@ export function QuoteSection({ quote }: QuoteSectionProps) {
           "opacity-0 group-hover:opacity-100 focus:opacity-100",
           "hover:border-border focus:outline-none focus:ring-1 focus:ring-ring",
           "bg-background/80 backdrop-blur-sm",
+          "print:hidden",
           copied && "text-primary border-primary/50"
         )}
         aria-label={copied ? "Quote copied" : "Copy quote to clipboard"}

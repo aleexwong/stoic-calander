@@ -9,6 +9,7 @@ import { Footer } from "@/components/Footer";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { AuthorCredit } from "@/components/AuthorCredit";
 import { ViewToggle, ViewMode } from "@/components/ViewToggle";
+import { PrintButton } from "@/components/PrintButton";
 import { stoicQuotes, StoicQuote } from "@/data/stoicQuotes";
 import { getDayOfYear } from "@/lib/dateUtils";
 
@@ -82,10 +83,12 @@ const Index = () => {
       <meta name="description" content="A modern memento mori. Reflect on time passing with daily Stoic wisdom from Marcus Aurelius, Seneca, and Epictetus." />
 
       {/* Author credit - top left */}
-      <AuthorCredit />
+      <div className="print:hidden">
+        <AuthorCredit />
+      </div>
 
       {/* Theme toggle - top right */}
-      <div className="fixed top-4 right-4 z-50">
+      <div className="fixed top-4 right-4 z-50 print:hidden">
         <ThemeToggle />
       </div>
 
@@ -100,14 +103,19 @@ const Index = () => {
           <section className="space-y-8" aria-labelledby="quote-heading">
             <h1 id="quote-heading" className="sr-only">Daily Stoic Quote</h1>
             <QuoteSection quote={currentQuote} />
-            <QuoteToggle mode={mode} onToggle={handleToggle} />
+            <div className="print:hidden">
+              <QuoteToggle mode={mode} onToggle={handleToggle} />
+            </div>
           </section>
 
           {/* Months row */}
           <MonthsRow />
 
-          {/* View toggle */}
-          <ViewToggle currentView={viewMode} onViewChange={handleViewChange} />
+          {/* View toggle and print */}
+          <div className="flex items-center justify-center gap-4 print:hidden">
+            <ViewToggle currentView={viewMode} onViewChange={handleViewChange} />
+            <PrintButton />
+          </div>
 
           {/* Dot grid visualization */}
           <section aria-labelledby="calendar-heading">

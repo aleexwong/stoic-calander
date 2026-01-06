@@ -40,3 +40,74 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Print Styles */
+@media print {
+  /* Reset page margins */
+  @page {
+    margin: 0.5in;
+    size: auto;
+  }
+
+  /* Hide interactive elements */
+  .print\\:hidden {
+    display: none !important;
+  }
+
+  /* Reset background and colors for printing */
+  body {
+    background: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Ensure the main content is visible */
+  .min-h-screen {
+    min-height: auto !important;
+  }
+
+  /* Style the dot grid for print */
+  .bg-dot-passed {
+    background-color: #1a1a1a !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .bg-dot-remaining {
+    background-color: #e5e5e5 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Ensure ring colors print properly */
+  .ring-primary {
+    --tw-ring-color: #1a1a1a !important;
+  }
+
+  /* Quote styling for print */
+  blockquote p {
+    color: black !important;
+  }
+
+  blockquote footer {
+    color: #666 !important;
+  }
+
+  /* Remove animations for print */
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Ensure proper spacing */
+  .container {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  /* Footer message for print */
+  footer p {
+    color: #888 !important;
+  }
+}
